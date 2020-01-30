@@ -1,0 +1,12 @@
+ALTER TABLE `task` ADD `description` TEXT NOT NULL DEFAULT '' AFTER `label`,
+ADD `version` VARCHAR(10) NOT NULL DEFAULT '' AFTER `description`,
+ADD `budget` FLOAT NOT NULL DEFAULT 0 AFTER `version`,
+ADD `escalation_cost` FLOAT NOT NULL DEFAULT 0 AFTER `budget`,
+ADD `escalation_time` VARCHAR(255) NOT NULL DEFAULT '' AFTER `escalation_cost`,
+ADD `date_received` DATE NOT NULL DEFAULT '0000-00-00' AFTER `escalation_time`,
+ADD `state_idfs` INT(11) NOT NULL DEFAULT '0' AFTER `date_received`,
+ADD `customer_idfs` INT(11) NOT NULL DEFAULT '0' AFTER `state_idfs`,
+ADD `reported_by` INT(11) NOT NULL DEFAULT '0' AFTER `customer_idfs`,
+ADD `priority` INT(11) NOT NULL DEFAULT '0' AFTER `reported_by`,
+ADD `project` INT(11) NOT NULL DEFAULT '0' AFTER `priority`,
+ADD `featured_image` VARCHAR (255) NOT NULL DEFAULT '' AFTER `project`;
