@@ -43,11 +43,25 @@ class TaskTable extends CoreEntityTable {
      * Fetch All Task Entities based on Filters
      *
      * @param bool $bPaginated
+     * @param array $aWhere
      * @return Paginator Paginated Table Connection
      * @since 1.0.0
      */
-    public function fetchAll($bPaginated = false) {
+    public function fetchAll($bPaginated = false,$aWhere = []) {
         $oSel = new Select($this->oTableGateway->getTable());
+
+        # Build where
+        $oWh = new Where();
+        foreach(array_keys($aWhere) as $sWh) {
+            $bIsLike = stripos($sWh,'-like');
+            if($bIsLike === false) {
+
+            } else {
+                # its a like
+                $oWh->like(substr($sWh,0,strlen($sWh)-strlen('-like')),$aWhere[$sWh].'%');
+            }
+        }
+        $oSel->where($oWh);
 
         # Return Paginator or Raw ResultSet based on selection
         if ($bPaginated) {
@@ -77,12 +91,13 @@ class TaskTable extends CoreEntityTable {
      * Get Task Entity
      *
      * @param int $id
+     * @param string $sKey custom key
      * @return mixed
      * @since 1.0.0
      */
-    public function getSingle($id) {
+    public function getSingle($id,$sKey = 'Task_ID') {
         $id = (int) $id;
-        $rowset = $this->oTableGateway->select(['Task_ID' => $id]);
+        $rowset = $this->oTableGateway->select([$sKey => $id]);
         $row = $rowset->current();
         if (! $row) {
             throw new \RuntimeException(sprintf(
@@ -142,5 +157,24 @@ class TaskTable extends CoreEntityTable {
         $this->oTableGateway->update($aData, ['Task_ID' => $id]);
 
         return $id;
+    }
+
+    /**
+     * Generate daily stats for task
+     *
+     * @since 1.0.5
+     */
+    public function generateDailyStats() {
+        # get all tasks
+        $iTotal = count($this->fetchAll(false));
+        # get newly created tasks
+        $iNew = count($this->fetchAll(false,['created_date-like'=>date('Y-m-d',time())]));
+
+        # add statistics
+        CoreController::$aCoreTables['core-statistic']->insert([
+            'stats_key'=>'task-daily',
+            'data'=>json_encode(['new'=>$iNew,'total'=>$iTotal]),
+            'date'=>date('Y-m-d H:i:s',time()),
+        ]);
     }
 }

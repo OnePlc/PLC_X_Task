@@ -62,6 +62,12 @@ class TaskController extends CoreController {
         # Set Layout based on users theme
         $this->setThemeBasedLayout('task');
 
+        # Check license
+        if(!$this->checkLicense('task')) {
+            $this->flashMessenger()->addErrorMessage('You have no active license for task');
+            $this->redirect()->toRoute('home');
+        }
+
         # Add Buttons for breadcrumb
         $this->setViewButtons('task-index');
 
@@ -94,6 +100,12 @@ class TaskController extends CoreController {
     public function addAction() {
         # Set Layout based on users theme
         $this->setThemeBasedLayout('task');
+
+        # Check license
+        if(!$this->checkLicense('task')) {
+            $this->flashMessenger()->addErrorMessage('You have no active license for task');
+            $this->redirect()->toRoute('home');
+        }
 
         # Get Request to decide wether to save or display form
         $oRequest = $this->getRequest();
@@ -149,6 +161,12 @@ class TaskController extends CoreController {
         # Set Layout based on users theme
         $this->setThemeBasedLayout('task');
 
+        # Check license
+        if(!$this->checkLicense('task')) {
+            $this->flashMessenger()->addErrorMessage('You have no active license for task');
+            $this->redirect()->toRoute('home');
+        }
+
         # Get Request to decide wether to save or display form
         $oRequest = $this->getRequest();
 
@@ -199,8 +217,11 @@ class TaskController extends CoreController {
 
         $this->layout('layout/json');
 
+        # Parse Form Data
+        $aFormData = $this->parseFormData($_REQUEST);
+
         # Save Multiselect
-        $this->updateMultiSelectFields($_REQUEST,$oTask,'task-single');
+        $this->updateMultiSelectFields($aFormData,$oTask,'task-single');
 
         # Log Performance in DB
         $aMeasureEnd = getrusage();
@@ -220,6 +241,12 @@ class TaskController extends CoreController {
     public function viewAction() {
         # Set Layout based on users theme
         $this->setThemeBasedLayout('task');
+
+        # Check license
+        if(!$this->checkLicense('task')) {
+            $this->flashMessenger()->addErrorMessage('You have no active license for task');
+            $this->redirect()->toRoute('home');
+        }
 
         # Get Task ID from URL
         $iTaskID = $this->params()->fromRoute('id', 0);
