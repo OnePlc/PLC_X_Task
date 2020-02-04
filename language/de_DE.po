@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2019-02-13 18:38+0100\n"
-"PO-Revision-Date: 2020-01-30 18:54+0100\n"
+"PO-Revision-Date: 2020-02-04 03:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,9 +15,6 @@ msgstr ""
 
 msgid "Model"
 msgstr "Modell"
-
-msgid "Coolant"
-msgstr "Kühlmittel"
 
 msgid "Internal"
 msgstr "Intern"
@@ -66,3 +63,30 @@ msgstr "Daten"
 
 msgid "Images"
 msgstr "Bilder"
+
+msgid "Tasks"
+msgstr "Aufgaben"
+
+msgid "Task"
+msgstr "Aufgabe"
+
+msgid "Escalation Cost"
+msgstr "Eskalationskosten"
+
+msgid "Escalation Time"
+msgstr "Eskalationszeit"
+
+msgid "planned Release"
+msgstr "geplante Veröffentlichung"
+
+msgid "Project"
+msgstr "Projekt"
+
+msgid "Priority"
+msgstr "Priorität"
+
+msgid "Assigned to"
+msgstr "Zugewiesen an"
+
+msgid "Customer"
+msgstr "Kunde"
