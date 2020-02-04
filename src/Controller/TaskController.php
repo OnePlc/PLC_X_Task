@@ -17,20 +17,20 @@ declare(strict_types=1);
 
 namespace OnePlace\Task\Controller;
 
-use Application\Controller\CoreController;
+use Application\Controller\CoreEntityController;
 use Application\Model\CoreEntityModel;
 use OnePlace\Task\Model\Task;
 use OnePlace\Task\Model\TaskTable;
 use Laminas\View\Model\ViewModel;
 use Laminas\Db\Adapter\AdapterInterface;
 
-class TaskController extends CoreController {
+class TaskController extends CoreEntityController {
     /**
      * Task Table Object
      *
      * @since 1.0.0
      */
-    private $oTableGateway;
+    protected $oTableGateway;
 
     /**
      * TaskController constructor.
@@ -59,36 +59,10 @@ class TaskController extends CoreController {
      * @return ViewModel - View Object with Data from Controller
      */
     public function indexAction() {
-        # Set Layout based on users theme
-        $this->setThemeBasedLayout('task');
 
-        # Check license
-        if(!$this->checkLicense('task')) {
-            $this->flashMessenger()->addErrorMessage('You have no active license for task');
-            $this->redirect()->toRoute('home');
-        }
-
-        # Add Buttons for breadcrumb
-        $this->setViewButtons('task-index');
-
-        # Set Table Rows for Index
-        $this->setIndexColumns('task-index');
-
-        # Get Paginator
-        $oPaginator = $this->oTableGateway->fetchAll(true);
-        $iPage = (int) $this->params()->fromQuery('page', 1);
-        $iPage = ($iPage < 1) ? 1 : $iPage;
-        $oPaginator->setCurrentPageNumber($iPage);
-        $oPaginator->setItemCountPerPage(3);
-
-        # Log Performance in DB
-        $aMeasureEnd = getrusage();
-        $this->logPerfomance('task-index',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
-
-        return new ViewModel([
-            'sTableName'=>'task-index',
-            'aItems'=>$oPaginator,
-        ]);
+        # You can just use the default function and customize it via hooks
+        # or replace the entire function if you need more customization
+        return $this->generateIndexView('task');
     }
 
     /**
@@ -98,57 +72,17 @@ class TaskController extends CoreController {
      * @return ViewModel - View Object with Data from Controller
      */
     public function addAction() {
-        # Set Layout based on users theme
-        $this->setThemeBasedLayout('task');
-
-        # Check license
-        if(!$this->checkLicense('task')) {
-            $this->flashMessenger()->addErrorMessage('You have no active license for task');
-            $this->redirect()->toRoute('home');
-        }
-
-        # Get Request to decide wether to save or display form
-        $oRequest = $this->getRequest();
-
-        # Display Add Form
-        if(!$oRequest->isPost()) {
-            # Add Buttons for breadcrumb
-            $this->setViewButtons('task-single');
-
-            # Load Tabs for View Form
-            $this->setViewTabs($this->sSingleForm);
-
-            # Load Fields for View Form
-            $this->setFormFields($this->sSingleForm);
-
-            # Log Performance in DB
-            $aMeasureEnd = getrusage();
-            $this->logPerfomance('task-add',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
-
-            return new ViewModel([
-                'sFormName' => $this->sSingleForm,
-            ]);
-        }
-
-        # Get and validate Form Data
-        $aFormData = $this->parseFormData($_REQUEST);
-
-        # Save Add Form
-        $oTask = new Task($this->oDbAdapter);
-        $oTask->exchangeArray($aFormData);
-        $iTaskID = $this->oTableGateway->saveSingle($oTask);
-        $oTask = $this->oTableGateway->getSingle($iTaskID);
-
-        # Save Multiselect
-        $this->updateMultiSelectFields($_REQUEST,$oTask,'task-single');
-
-        # Log Performance in DB
-        $aMeasureEnd = getrusage();
-        $this->logPerfomance('task-save',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
-
-        # Display Success Message and View New Task
-        $this->flashMessenger()->addSuccessMessage('Task successfully created');
-        return $this->redirect()->toRoute('task',['action'=>'view','id'=>$iTaskID]);
+        /**
+         * You can just use the default function and customize it via hooks
+         * or replace the entire function if you need more customization
+         *
+         * Hooks available:
+         *
+         * task-add-before (before show add form)
+         * task-add-before-save (before save)
+         * task-add-after-save (after save)
+         */
+        return $this->generateAddView('task');
     }
 
     /**
@@ -158,78 +92,17 @@ class TaskController extends CoreController {
      * @return ViewModel - View Object with Data from Controller
      */
     public function editAction() {
-        # Set Layout based on users theme
-        $this->setThemeBasedLayout('task');
-
-        # Check license
-        if(!$this->checkLicense('task')) {
-            $this->flashMessenger()->addErrorMessage('You have no active license for task');
-            $this->redirect()->toRoute('home');
-        }
-
-        # Get Request to decide wether to save or display form
-        $oRequest = $this->getRequest();
-
-        # Display Edit Form
-        if(!$oRequest->isPost()) {
-
-            # Get Task ID from URL
-            $iTaskID = $this->params()->fromRoute('id', 0);
-
-            # Try to get Task
-            try {
-                $oTask = $this->oTableGateway->getSingle($iTaskID);
-            } catch (\RuntimeException $e) {
-                echo 'Task Not found';
-                return false;
-            }
-
-            # Attach Task Entity to Layout
-            $this->setViewEntity($oTask);
-
-            # Add Buttons for breadcrumb
-            $this->setViewButtons('task-single');
-
-            # Load Tabs for View Form
-            $this->setViewTabs($this->sSingleForm);
-
-            # Load Fields for View Form
-            $this->setFormFields($this->sSingleForm);
-
-            # Log Performance in DB
-            $aMeasureEnd = getrusage();
-            $this->logPerfomance('task-edit',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
-
-            return new ViewModel([
-                'sFormName' => $this->sSingleForm,
-                'oTask' => $oTask,
-            ]);
-        }
-
-        $iTaskID = $oRequest->getPost('Item_ID');
-        $oTask = $this->oTableGateway->getSingle($iTaskID);
-
-        # Update Task with Form Data
-        $oTask = $this->attachFormData($_REQUEST,$oTask);
-
-        # Save Task
-        $iTaskID = $this->oTableGateway->saveSingle($oTask);
-
-        $this->layout('layout/json');
-
-        # Parse Form Data
-        $aFormData = $this->parseFormData($_REQUEST);
-
-        # Save Multiselect
-        $this->updateMultiSelectFields($aFormData,$oTask,'task-single');
-
-        # Log Performance in DB
-        $aMeasureEnd = getrusage();
-        $this->logPerfomance('task-save',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
-
-        # Display Success Message and View New User
-        $this->flashMessenger()->addSuccessMessage('Task successfully saved');
-        return $this->redirect()->toRoute('task',['action'=>'view','id'=>$iTaskID]);
+        /**
+         * You can just use the default function and customize it via hooks
+         * or replace the entire function if you need more customization
+         *
+         * Hooks available:
+         *
+         * task-edit-before (before show edit form)
+         * task-edit-before-save (before save)
+         * task-edit-after-save (after save)
+         */
+        return $this->generateEditView('task');
     }
 
     /**
@@ -239,45 +112,14 @@ class TaskController extends CoreController {
      * @return ViewModel - View Object with Data from Controller
      */
     public function viewAction() {
-        # Set Layout based on users theme
-        $this->setThemeBasedLayout('task');
-
-        # Check license
-        if(!$this->checkLicense('task')) {
-            $this->flashMessenger()->addErrorMessage('You have no active license for task');
-            $this->redirect()->toRoute('home');
-        }
-
-        # Get Task ID from URL
-        $iTaskID = $this->params()->fromRoute('id', 0);
-
-        # Try to get Task
-        try {
-            $oTask = $this->oTableGateway->getSingle($iTaskID);
-        } catch (\RuntimeException $e) {
-            echo 'Task Not found';
-            return false;
-        }
-
-        # Attach Task Entity to Layout
-        $this->setViewEntity($oTask);
-
-        # Add Buttons for breadcrumb
-        $this->setViewButtons('task-view');
-
-        # Load Tabs for View Form
-        $this->setViewTabs($this->sSingleForm);
-
-        # Load Fields for View Form
-        $this->setFormFields($this->sSingleForm);
-
-        # Log Performance in DB
-        $aMeasureEnd = getrusage();
-        $this->logPerfomance('task-view',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
-
-        return new ViewModel([
-            'sFormName'=>$this->sSingleForm,
-            'oTask'=>$oTask,
-        ]);
+        /**
+         * You can just use the default function and customize it via hooks
+         * or replace the entire function if you need more customization
+         *
+         * Hooks available:
+         *
+         * task-view-before
+         */
+        return $this->generateViewView('task');
     }
 }

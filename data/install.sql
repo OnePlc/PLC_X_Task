@@ -24,7 +24,9 @@ INSERT INTO `permission` (`permission_key`, `module`, `label`, `nav_label`, `nav
 ('edit', 'OnePlace\\Task\\Controller\\TaskController', 'Edit', '', '', 0),
 ('index', 'OnePlace\\Task\\Controller\\TaskController', 'Index', 'Tasks', '/task', 1),
 ('list', 'OnePlace\\Task\\Controller\\ApiController', 'List', '', '', 1),
-('view', 'OnePlace\\Task\\Controller\\TaskController', 'View', '', '', 0);
+('view', 'OnePlace\\Task\\Controller\\TaskController', 'View', '', '', 0),
+('dump', 'OnePlace\\Task\\Controller\\ExportController', 'Excel Dump', '', '', 0),
+('index', 'OnePlace\\Task\\Controller\\SearchController', 'Search', '', '', 0);
 
 --
 -- Form
@@ -49,12 +51,16 @@ INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `cou
 INSERT INTO `core_form_button` (`Button_ID`, `label`, `icon`, `title`, `href`, `class`, `append`, `form`, `mode`, `filter_check`, `filter_value`) VALUES
 (NULL, 'Save Task', 'fas fa-save', 'Save Task', '#', 'primary saveForm', '', 'task-single', 'link', '', ''),
 (NULL, 'Edit Task', 'fas fa-edit', 'Edit Task', '/task/edit/##ID##', 'primary', '', 'task-view', 'link', '', ''),
-(NULL, 'Add Task', 'fas fa-plus', 'Add Task', '/task/add', 'primary', '', 'task-index', 'link', '', '');
+(NULL, 'Add Task', 'fas fa-plus', 'Add Task', '/task/add', 'primary', '', 'task-index', 'link', '', ''),
+(NULL, 'Export Tasks', 'fas fa-file-excel', 'Export Tasks', '/task/export', 'primary', '', 'task-index', 'link', '', ''),
+(NULL, 'Find Tasks', 'fas fa-searh', 'Find Tasks', '/task/search', 'primary', '', 'task-index', 'link', '', ''),
+(NULL, 'Export Tasks', 'fas fa-file-excel', 'Export Tasks', '#', 'primary initExcelDump', '', 'task-search', 'link', '', ''),
+(NULL, 'New Search', 'fas fa-searh', 'New Search', '/task/search', 'primary', '', 'task-search', 'link', '', '');
 
 --
 -- Fields
 --
-INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `form`, `class`, `url_view`, `url_ist`, `show_widget_left`, `allow_clear`, `readonly`, `tbl_cached_name`, `tbl_class`, `tbl_permission`) VALUES
+INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `form`, `class`, `url_view`, `url_list`, `show_widget_left`, `allow_clear`, `readonly`, `tbl_cached_name`, `tbl_class`, `tbl_permission`) VALUES
 (NULL, 'text', 'Name', 'label', 'task-base', 'task-single', 'col-md-3', '/task/view/##ID##', '', 0, 1, 0, '', '', '');
 
 --
@@ -63,5 +69,13 @@ INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `
 INSERT INTO `core_widget` (`Widget_ID`, `widget_name`, `label`, `permission`) VALUES
 (NULL, 'task_dailystats', 'Task - Daily Stats', 'index-Task\\Controller\\TaskController'),
 (NULL, 'task_taginfo', 'Task - Tag Info', 'index-Task\\Controller\\TaskController');
+
+--
+-- User XP Activity
+--
+INSERT INTO `user_xp_activity` (`Activity_ID`, `xp_key`, `label`, `xp_base`) VALUES
+(NULL, 'task-add', 'Add New Task', '50'),
+(NULL, 'task-edit', 'Edit Task', '5'),
+(NULL, 'task-export', 'Edit Task', '5');
 
 COMMIT;

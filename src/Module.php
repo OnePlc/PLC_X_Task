@@ -9,7 +9,7 @@
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 
@@ -23,15 +23,17 @@ use Laminas\ModuleManager\ModuleManager;
 use Laminas\Session\Config\StandardConfig;
 use Laminas\Session\SessionManager;
 use Laminas\Session\Container;
-use Application\Controller\CoreController;
+use Application\Controller\CoreEntityController;
+use OnePlace\Task\Controller\PluginController;
 
 class Module {
     /**
      * Module Version
      *
-     * @since 1.0.6
+     * @since 1.0.0
      */
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
+
     /**
      * Load module config file
      *
@@ -69,17 +71,49 @@ class Module {
     public function getControllerConfig() : array {
         return [
             'factories' => [
+                # Plugin Example Controller
+                Controller\PluginController::class => function($container) {
+                    $oDbAdapter = $container->get(AdapterInterface::class);
+                    return new Controller\PluginController(
+                        $oDbAdapter,
+                        $container->get(Model\TaskTable::class),
+                        $container
+                    );
+                },
+                # Task Main Controller
                 Controller\TaskController::class => function($container) {
                     $oDbAdapter = $container->get(AdapterInterface::class);
+                    $tableGateway = $container->get(Model\TaskTable::class);
+                    # hook plugin
+                    CoreEntityController::addHook('task-add-before',(object)['sFunction'=>'testFunction','oItem'=>new PluginController($oDbAdapter,$tableGateway,$container)]);
                     return new Controller\TaskController(
                         $oDbAdapter,
                         $container->get(Model\TaskTable::class),
                         $container
                     );
                 },
+                # Api Plugin
                 Controller\ApiController::class => function($container) {
                     $oDbAdapter = $container->get(AdapterInterface::class);
                     return new Controller\ApiController(
+                        $oDbAdapter,
+                        $container->get(Model\TaskTable::class),
+                        $container
+                    );
+                },
+                # Export Plugin
+                Controller\ExportController::class => function($container) {
+                    $oDbAdapter = $container->get(AdapterInterface::class);
+                    return new Controller\ExportController(
+                        $oDbAdapter,
+                        $container->get(Model\TaskTable::class),
+                        $container
+                    );
+                },
+                # Search Plugin
+                Controller\SearchController::class => function($container) {
+                    $oDbAdapter = $container->get(AdapterInterface::class);
+                    return new Controller\SearchController(
                         $oDbAdapter,
                         $container->get(Model\TaskTable::class),
                         $container

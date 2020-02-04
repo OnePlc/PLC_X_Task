@@ -52,6 +52,48 @@ return [
                     ],
                 ],
             ],
+            'task-export' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/task/export[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\ExportController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+            'task-search' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/task/search[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\SearchController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+            'task-plugin' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/task/plugin[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\PluginController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
 

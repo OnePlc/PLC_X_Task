@@ -5,7 +5,7 @@
  * Main Controller for Task Api
  *
  * @category Controller
- * @package Application
+ * @package Task
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
