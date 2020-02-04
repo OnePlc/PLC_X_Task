@@ -1,13 +1,3 @@
 ALTER TABLE `task` ADD `description` TEXT NOT NULL DEFAULT '' AFTER `label`,
-ADD `version` VARCHAR(10) NOT NULL DEFAULT '' AFTER `description`,
-ADD `budget` FLOAT NOT NULL DEFAULT 0 AFTER `version`,
-ADD `escalation_cost` FLOAT NOT NULL DEFAULT 0 AFTER `budget`,
-ADD `escalation_time` VARCHAR(255) NOT NULL DEFAULT '' AFTER `escalation_cost`,
-ADD `planned_release` DATE NOT NULL DEFAULT '0000-00-00' AFTER `escalation_time`,
-ADD `state_idfs` INT(11) NOT NULL DEFAULT '0' AFTER `planned_release`,
-ADD `customer_idfs` INT(11) NOT NULL DEFAULT '0' AFTER `state_idfs`,
-ADD `assigned_idfs` INT(11) NOT NULL DEFAULT '0' AFTER `customer_idfs`,
-ADD `reported_by_idfs` INT(11) NOT NULL DEFAULT '0' AFTER `assigned_idfs`,
-ADD `priority_idfs` INT(11) NOT NULL DEFAULT '0' AFTER `reported_by_idfs`,
-ADD `project_idfs` INT(11) NOT NULL DEFAULT '0' AFTER `priority_idfs`,
-ADD `featured_image` VARCHAR (255) NOT NULL DEFAULT '' AFTER `project_idfs`;
+ADD `state_idfs` INT(11) NOT NULL DEFAULT '0' AFTER `description`,
+ADD `featured_image` VARCHAR (255) NOT NULL DEFAULT '' AFTER `state_idfs`;
