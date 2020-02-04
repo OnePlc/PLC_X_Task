@@ -10,11 +10,11 @@ INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `
 (NULL, 'date', 'planned Release', 'planned_release', 'task-base', 'task-single', 'col-md-2', '', '', 0, 1, 0, '', '', ''),
 (NULL, 'multiselect', 'Categories', 'category_idfs', 'task-base', 'task-single', 'col-md-3', '', '/tag/api/list/task-single/category', 1, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Task\\Controller\\CategoryController'),
 (NULL, 'select', 'State', 'state_idfs', 'task-base', 'task-single', 'col-md-3', '', '/tag/api/list/task-single/state', 1, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable','add-OnePlace\\Task\\Controller\\StateController'),
-(NULL, 'select', 'Customer', 'customer_idfs', 'task-base', 'task-single', 'col-md-3', '', '/api/contact/list/0', 0, 1, 0, 'contact-single', 'OnePlace\\Contact\\Model\\ContactTable','add-OnePlace\\Contact\\Controller\\ContactController'),
-(NULL, 'select', 'Assigned to', 'assigned_idfs', 'task-base', 'task-single', 'col-md-3', '', '/api/user/list/0', 0, 1, 0, 'user-single', 'OnePlace\\User\\Model\\UserTable','add-OnePlace\\User\\Controller\\UserController'),
-(NULL, 'select', 'Reported By', 'reported_by_idfs', 'task-base', 'task-single', 'col-md-3', '', '/api/contact/list/0', 0, 1, 0, 'contact-single', 'OnePlace\\Contact\\Model\\ContactTable','add-OnePlace\\Contact\\Controller\\ContactController'),
+(NULL, 'select', 'Customer', 'customer_idfs', 'task-base', 'task-single', 'col-md-3', '', '/contact/api/list/0', 0, 1, 0, 'contact-single', 'OnePlace\\Contact\\Model\\ContactTable','add-OnePlace\\Contact\\Controller\\ContactController'),
+(NULL, 'select', 'Assigned to', 'assigned_idfs', 'task-base', 'task-single', 'col-md-3', '', '/user/api/list/0', 0, 1, 0, 'user-single', 'OnePlace\\User\\Model\\UserTable','add-OnePlace\\User\\Controller\\UserController'),
+(NULL, 'select', 'Reported By', 'reported_by_idfs', 'task-base', 'task-single', 'col-md-3', '', '/contact/api/list/0', 0, 1, 0, 'contact-single', 'OnePlace\\Contact\\Model\\ContactTable','add-OnePlace\\Contact\\Controller\\ContactController'),
 (NULL, 'select', 'Priority', 'priority_idfs', 'task-base', 'task-single', 'col-md-3', '', '/tag/api/list/task-single/priority', 0, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Task\\Controller\\PriorityController'),
-(NULL, 'select', 'Project', 'project_idfs', 'task-base', 'task-single', 'col-md-3', '', '/api/project/list/0', 0, 1, 0, 'project-single', 'OnePlace\\Project\\Model\\ProjectTable','add-OnePlace\\Project\\Controller\\ProjectController'),
+(NULL, 'select', 'Project', 'project_idfs', 'task-base', 'task-single', 'col-md-3', '', '/project/api/list/0', 0, 1, 0, 'project-single', 'OnePlace\\Project\\Model\\ProjectTable','add-OnePlace\\Project\\Controller\\ProjectController'),
 (NULL, 'featuredimage', 'Featured Image', 'featured_image', 'task-base', 'task-single', 'col-md-3', '', '', 0, 1, 0, '', '', '');
 
 
