@@ -43,12 +43,13 @@ class TaskTable extends CoreEntityTable {
      * Get Task Entity
      *
      * @param int $id
+     * @param string $sKey
      * @return mixed
      * @since 1.0.0
      */
-    public function getSingle($id) {
+    public function getSingle($id,$sKey = 'Task_ID') {
         # Use core function
-        return $this->getSingleEntity($id,'Task_ID');
+        return $this->getSingleEntity($id,$sKey);
     }
 
     /**
@@ -105,7 +106,7 @@ class TaskTable extends CoreEntityTable {
      * Generate new single Entity
      *
      * @return Task
-     * @since 1.0.1
+     * @since 1.0.0
      */
     public function generateNew() {
         return new Task($this->oTableGateway->getAdapter());

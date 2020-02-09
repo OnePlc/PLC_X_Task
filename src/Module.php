@@ -9,7 +9,7 @@
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
- * @version 1.0.1
+ * @version 1.0.0
  * @since 1.0.0
  */
 
@@ -24,7 +24,6 @@ use Laminas\Session\Config\StandardConfig;
 use Laminas\Session\SessionManager;
 use Laminas\Session\Container;
 use Application\Controller\CoreEntityController;
-use OnePlace\Task\Controller\PluginController;
 
 class Module {
     /**
@@ -32,7 +31,7 @@ class Module {
      *
      * @since 1.0.0
      */
-    const VERSION = '1.0.1.1';
+    const VERSION = '1.0.2';
 
     /**
      * Load module config file
@@ -71,21 +70,10 @@ class Module {
     public function getControllerConfig() : array {
         return [
             'factories' => [
-                # Plugin Example Controller
-                Controller\PluginController::class => function($container) {
-                    $oDbAdapter = $container->get(AdapterInterface::class);
-                    return new Controller\PluginController(
-                        $oDbAdapter,
-                        $container->get(Model\TaskTable::class),
-                        $container
-                    );
-                },
                 # Task Main Controller
                 Controller\TaskController::class => function($container) {
                     $oDbAdapter = $container->get(AdapterInterface::class);
                     $tableGateway = $container->get(Model\TaskTable::class);
-                    # hook plugin
-                    CoreEntityController::addHook('task-add-before',(object)['sFunction'=>'testFunction','oItem'=>new PluginController($oDbAdapter,$tableGateway,$container)]);
                     return new Controller\TaskController(
                         $oDbAdapter,
                         $container->get(Model\TaskTable::class),

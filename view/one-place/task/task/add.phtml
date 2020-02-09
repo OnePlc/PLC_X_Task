@@ -1,3 +1,8 @@
-<h1>Add new task</h1>
-
-<?= $this->partial('partial/basicform', ['sFormName'=>$sFormName]); ?>
+<?php
+$aPartialData = ['sFormName'=>$sFormName];
+if(isset($aPartialExtraData)) {
+    $aPartialData['aPartialExtraData'] = $aPartialExtraData;
+}
+?>
+<?= $this->partial('partial/formheader',['sTitle'=>'Add new Task']) ?>
+<?= $this->partial('partial/basicform', $aPartialData); ?>

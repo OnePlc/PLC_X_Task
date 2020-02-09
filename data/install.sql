@@ -64,13 +64,6 @@ INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `
 (NULL, 'text', 'Name', 'label', 'task-base', 'task-single', 'col-md-3', '/task/view/##ID##', '', 0, 1, 0, '', '', '');
 
 --
--- Default Widgets
---
-INSERT INTO `core_widget` (`Widget_ID`, `widget_name`, `label`, `permission`) VALUES
-(NULL, 'task_dailystats', 'Task - Daily Stats', 'index-Task\\Controller\\TaskController'),
-(NULL, 'task_taginfo', 'Task - Tag Info', 'index-Task\\Controller\\TaskController');
-
---
 -- User XP Activity
 --
 INSERT INTO `user_xp_activity` (`Activity_ID`, `xp_key`, `label`, `xp_base`) VALUES
