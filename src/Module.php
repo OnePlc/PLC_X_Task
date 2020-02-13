@@ -9,7 +9,7 @@
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 
@@ -31,7 +31,7 @@ class Module {
      *
      * @since 1.0.0
      */
-    const VERSION = '1.0.2';
+    const VERSION = '1.0.1';
 
     /**
      * Load module config file
@@ -102,6 +102,15 @@ class Module {
                 Controller\SearchController::class => function($container) {
                     $oDbAdapter = $container->get(AdapterInterface::class);
                     return new Controller\SearchController(
+                        $oDbAdapter,
+                        $container->get(Model\TaskTable::class),
+                        $container
+                    );
+                },
+                # Installer
+                Controller\InstallController::class => function($container) {
+                    $oDbAdapter = $container->get(AdapterInterface::class);
+                    return new Controller\InstallController(
                         $oDbAdapter,
                         $container->get(Model\TaskTable::class),
                         $container

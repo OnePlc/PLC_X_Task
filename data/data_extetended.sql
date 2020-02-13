@@ -30,7 +30,5 @@ INSERT INTO `permission` (`permission_key`, `module`, `label`, `nav_label`, `nav
 --
 -- Custom Tags
 --
--- todo: add select before and check if tag exists
---
-INSERT INTO `core_tag` (`Tag_ID`, `tag_key`, `tag_label`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
+INSERT IGNORE INTO `core_tag` (`Tag_ID`, `tag_key`, `tag_label`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
 (NULL, 'priority', 'Priority', '1', '0000-00-00 00:00:00', '1', '0000-00-00 00:00:00');

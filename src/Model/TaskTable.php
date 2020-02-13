@@ -60,53 +60,18 @@ class TaskTable extends CoreEntityTable {
      * @since 1.0.0
      */
     public function saveSingle(Task $oTask) {
-        $aData = [
+        $aDefaultData = [
             'label' => $oTask->label,
         ];
 
-        $aData = $this->attachDynamicFields($aData,$oTask);
-
-        $id = (int) $oTask->id;
-
-        if ($id === 0) {
-            # Add Metadata
-            $aData['created_by'] = CoreController::$oSession->oUser->getID();
-            $aData['created_date'] = date('Y-m-d H:i:s',time());
-            $aData['modified_by'] = CoreController::$oSession->oUser->getID();
-            $aData['modified_date'] = date('Y-m-d H:i:s',time());
-
-            # Insert Task
-            $this->oTableGateway->insert($aData);
-
-            # Return ID
-            return $this->oTableGateway->lastInsertValue;
-        }
-
-        # Check if Task Entity already exists
-        try {
-            $this->getSingle($id);
-        } catch (\RuntimeException $e) {
-            throw new \RuntimeException(sprintf(
-                'Cannot update task with identifier %d; does not exist',
-                $id
-            ));
-        }
-
-        # Update Metadata
-        $aData['modified_by'] = CoreController::$oSession->oUser->getID();
-        $aData['modified_date'] = date('Y-m-d H:i:s',time());
-
-        # Update Task
-        $this->oTableGateway->update($aData, ['Task_ID' => $id]);
-
-        return $id;
+        return $this->saveSingleEntity($oTask,'Task_ID',$aDefaultData);
     }
 
     /**
      * Generate new single Entity
      *
      * @return Task
-     * @since 1.0.0
+     * @since 1.0.1
      */
     public function generateNew() {
         return new Task($this->oTableGateway->getAdapter());

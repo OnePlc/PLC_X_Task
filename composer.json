@@ -3,7 +3,7 @@
     "description": "onePlace Task Module",
     "type": "oneplace-module",
     "license": "BSD-3-Clause",
-    "version": "1.0.2",
+	"version": "1.0.1",
     "keywords": [
         "laminas",
         "mvc",
@@ -14,12 +14,12 @@
     ],
     "require-dev": {
         "phpunit/phpunit": "^8",
-        "oneplace/oneplace-core": "^1.0.15",
+        "oneplace/oneplace-core": "^1.0.18",
         "laminas/laminas-test": "^3.3.0"
     },
     "require": {
         "php": "^7.1",
-        "oneplace/oneplace-core": "^1.0.7",
+        "oneplace/oneplace-core": "^1.0.19",
         "phpoffice/phpspreadsheet": "^1.10"
     },
     "autoload": {
