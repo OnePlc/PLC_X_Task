@@ -4,9 +4,9 @@
 INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `form`, `class`, `url_view`, `url_list`, `show_widget_left`, `allow_clear`, `readonly`, `tbl_cached_name`, `tbl_class`, `tbl_permission`) VALUES
 (NULL, 'textarea', 'Description', 'description', 'task-base', 'task-single', 'col-md-12', '', '', 0, 1, 0, '', '', ''),
 (NULL, 'text', 'Version', 'version', 'task-base', 'task-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
-(NULL, 'currency', 'Budget', 'budget', 'task-base', 'task-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
-(NULL, 'currency', 'Escalation Cost', 'escalation_cost', 'task-base', 'task-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
-(NULL, 'text', 'Escalation Time', 'escalation_time', 'task-base', 'task-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
+(NULL, 'currency', 'Budget', 'budget', 'task-base', 'task-single', 'col-md-3', '', '', 0, 1, 0, '', '', ''),
+(NULL, 'currency', 'Escalation Cost', 'escalation_cost', 'task-base', 'task-single', 'col-md-3', '', '', 0, 1, 0, '', '', ''),
+(NULL, 'text', 'Escalation Time', 'escalation_time', 'task-base', 'task-single', 'col-md-2', '', '', 0, 1, 0, '', '', ''),
 (NULL, 'date', 'planned Release', 'planned_release', 'task-base', 'task-single', 'col-md-2', '', '', 0, 1, 0, '', '', ''),
 (NULL, 'multiselect', 'Categories', 'category_idfs', 'task-base', 'task-single', 'col-md-3', '', '/tag/api/list/task-single/category', 1, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Task\\Controller\\CategoryController'),
 (NULL, 'select', 'State', 'state_idfs', 'task-base', 'task-single', 'col-md-3', '', '/tag/api/list/task-single/state', 1, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable','add-OnePlace\\Task\\Controller\\StateController'),
