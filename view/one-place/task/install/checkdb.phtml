@@ -7,37 +7,34 @@
             <div class="card-body">
                 <form action="" method="POST">
                     <div class="form-group">
-                    <?php
-                    ?>
-                    <?php
-                    if($bTableExists) { ?>
-                        <div class="alert alert-success py-2 px-2">
-                            <?=$this->translate('Database is up-to-date')?>
-                        </div>
-                    <?php
-                    } else { ?>
-                        <div class="alert alert-warning py-2 px-2">
-                            <?=$this->translate('Database needs update. Please choose config')?>
-                        </div>
                         <?php
-                        if(file_exists('vendor/'.$sVendor.'/'.$sModule.'/data/structure_simple.sql')) {
-                            ?> <br/><input type="radio" name="plc_module_setup_config" value="simple" checked /> Simple
+                        ?>
+                        <?php
+                        if($bTableExists) { ?>
+                            <div class="alert alert-success py-2 px-2">
+                                <?=$this->translate('Database is up-to-date')?>
+                            </div>
                             <?php
-                        }
-                        if(file_exists('vendor/'.$sVendor.'/'.$sModule.'/data/structure_extended.sql')) {
-                            ?> <br/><input type="radio" name="plc_module_setup_config" value="extended" /> Simple
+                        } else { ?>
+                            <div class="alert alert-warning py-2 px-2">
+                                <?=$this->translate('Database needs update. Please choose config')?>
+                            </div>
                             <?php
+                            foreach(glob('vendor/'.$sVendor.'/'.$sModule.'/data/structure_*.sql') as $sConfig) {
+                                $sConfig = str_replace(['.sql'],[],explode('_',basename($sConfig))[1]); ?>
+                                <br/><input type="radio" name="plc_module_setup_config" value="<?=$sConfig?>" checked /> <?=$sConfig?>
+                                <?php
+                            }
                         }
-                    }
-                    ?>
+                        ?>
                     </div>
 
                     <?php if (! $bTableExists) { ?>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">
-                            <?=$this->translate('Update Database')?>
-                        </button>
-                    </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <?=$this->translate('Update Database')?>
+                            </button>
+                        </div>
                     <?php } ?>
                 </form>
             </div>

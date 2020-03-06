@@ -53,9 +53,9 @@ INSERT INTO `core_form_button` (`Button_ID`, `label`, `icon`, `title`, `href`, `
 (NULL, 'Edit Task', 'fas fa-edit', 'Edit Task', '/task/edit/##ID##', 'primary', '', 'task-view', 'link', '', ''),
 (NULL, 'Add Task', 'fas fa-plus', 'Add Task', '/task/add', 'primary', '', 'task-index', 'link', '', ''),
 (NULL, 'Export Tasks', 'fas fa-file-excel', 'Export Tasks', '/task/export', 'primary', '', 'task-index', 'link', '', ''),
-(NULL, 'Find Tasks', 'fas fa-searh', 'Find Tasks', '/task/search', 'primary', '', 'task-index', 'link', '', ''),
+(NULL, 'Find Tasks', 'fas fa-search', 'Find Tasks', '/task/search', 'primary', '', 'task-index', 'link', '', ''),
 (NULL, 'Export Tasks', 'fas fa-file-excel', 'Export Tasks', '#', 'primary initExcelDump', '', 'task-search', 'link', '', ''),
-(NULL, 'New Search', 'fas fa-searh', 'New Search', '/task/search', 'primary', '', 'task-search', 'link', '', '');
+(NULL, 'New Search', 'fas fa-search', 'New Search', '/task/search', 'primary', '', 'task-search', 'link', '', '');
 
 --
 -- Fields
@@ -70,5 +70,10 @@ INSERT INTO `user_xp_activity` (`Activity_ID`, `xp_key`, `label`, `xp_base`) VAL
 (NULL, 'task-add', 'Add New Task', '50'),
 (NULL, 'task-edit', 'Edit Task', '5'),
 (NULL, 'task-export', 'Edit Task', '5');
+
+--
+-- module icon
+--
+INSERT INTO `settings` (`settings_key`, `settings_value`) VALUES ('task-icon', 'fas fa-tasks');
 
 COMMIT;
